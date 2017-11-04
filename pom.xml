@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cf.baradist.spring</groupId>
-    <artifactId>cf.baradist.spring.core</artifactId>
+    <artifactId>spring-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring-core-course</name>
     <description>Spring-core course</description>
@@ -43,6 +43,19 @@
                                 <mainClass>cf.baradist.spring.core.App</mainClass>
                             </manifest>
                         </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>cf.baradist.spring.core.App</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
                     </configuration>
                 </plugin>
             </plugins>
