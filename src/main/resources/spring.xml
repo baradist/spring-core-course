@@ -9,5 +9,8 @@
 
     <bean id="eventLogger" class="cf.baradist.spring.core.loggers.ConsoleEventLogger"/>
 
-    <bean id="app" class="cf.baradist.spring.core.App"/>
+    <bean id="app" class="cf.baradist.spring.core.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="eventLogger"/>
+    </bean>
 </beans>
