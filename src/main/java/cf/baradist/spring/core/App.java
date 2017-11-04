@@ -1,6 +1,7 @@
 package cf.baradist.spring.core;
 
 import cf.baradist.spring.core.beans.Client;
+import cf.baradist.spring.core.loggers.Event;
 import cf.baradist.spring.core.loggers.EventLogger;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class App {
     private Client client;
     private EventLogger eventLogger;
+    private static ApplicationContext ctx;
 
     public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ctx = new ClassPathXmlApplicationContext("spring.xml");
         App app = (App) ctx.getBean("app");
 
         app.logEvent("Some event for 1");
@@ -23,6 +25,8 @@ public class App {
 
     public void logEvent(String msg) {
         String message = msg.replaceAll(String.valueOf(client.getId()), client.getFullName());
-        eventLogger.logEvent(message);
+        Event event = (Event) ctx.getBean("event");
+        event.setMsg(message);
+        eventLogger.logEvent(event);
     }
 }

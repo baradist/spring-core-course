@@ -9,6 +9,15 @@
 
     <bean id="eventLogger" class="cf.baradist.spring.core.loggers.ConsoleEventLogger"/>
 
+    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateInstance"/>
+
+    <bean id="event" class="cf.baradist.spring.core.loggers.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg ref="dateFormat"/>
+    </bean>
+
     <bean id="app" class="cf.baradist.spring.core.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="eventLogger"/>
