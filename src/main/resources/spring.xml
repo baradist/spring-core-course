@@ -3,11 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
- 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+       default-lazy-init="true">
+
+    <import resource="loggers.xml"/>
 
     <bean id="client" class="cf.baradist.spring.core.beans.Client"/>
-
-    <bean id="eventLogger" class="cf.baradist.spring.core.loggers.ConsoleEventLogger"/>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateInstance"/>
 
@@ -20,13 +21,6 @@
 
     <bean id="app" class="cf.baradist.spring.core.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="fileEventLogger"/>
-    </bean>
-
-    <bean id="fileEventLogger" class="cf.baradist.spring.core.loggers.CachedFileEventLogger"
-          init-method="init"
-          destroy-method="destroy">
-        <constructor-arg index="0" value="logs/log.txt"/>
-        <constructor-arg index="1" value="10"/>
+        <constructor-arg ref="cachedFileEventLogger"/>
     </bean>
 </beans>

@@ -39,4 +39,7 @@ public class FileEventLogger implements EventLogger {
             throw new IOException();
         }
     }
+
+    protected void destroy() {
+    }
 }

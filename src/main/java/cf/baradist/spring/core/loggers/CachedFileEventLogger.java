@@ -25,7 +25,8 @@ public class CachedFileEventLogger extends FileEventLogger {
         super.init();
     }
 
-    public void destroy() {
+    @Override
+    protected void destroy() {
         writeEventsFromAndClearCashe();
     }
 

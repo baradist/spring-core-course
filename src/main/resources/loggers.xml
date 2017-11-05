@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+       default-lazy-init="true">
+
+    <bean id="eventLogger" class="cf.baradist.spring.core.loggers.ConsoleEventLogger"/>
+
+    <bean id="fileEventLogger" class="cf.baradist.spring.core.loggers.CachedFileEventLogger"
+          init-method="init"
+          destroy-method="destroy">
+        <constructor-arg index="0" value="logs/log.txt"/>
+    </bean>
+
+    <bean id="cachedFileEventLogger" class="cf.baradist.spring.core.loggers.CachedFileEventLogger"
+          parent="fileEventLogger">
+        <constructor-arg index="1" value="10"/>
+    </bean>
+</beans>
