@@ -23,8 +23,10 @@
         <constructor-arg ref="fileEventLogger"/>
     </bean>
 
-    <bean id="fileEventLogger" class="cf.baradist.spring.core.loggers.FileEventLogger"
-          init-method="init">
-        <constructor-arg value="logs/log.txt"/>
+    <bean id="fileEventLogger" class="cf.baradist.spring.core.loggers.CachedFileEventLogger"
+          init-method="init"
+          destroy-method="destroy">
+        <constructor-arg index="0" value="logs/log.txt"/>
+        <constructor-arg index="1" value="10"/>
     </bean>
 </beans>
