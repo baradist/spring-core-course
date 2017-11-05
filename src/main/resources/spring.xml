@@ -20,6 +20,11 @@
 
     <bean id="app" class="cf.baradist.spring.core.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="fileEventLogger"/>
+    </bean>
+
+    <bean id="fileEventLogger" class="cf.baradist.spring.core.loggers.FileEventLogger"
+          init-method="init">
+        <constructor-arg value="logs/log.txt"/>
     </bean>
 </beans>
