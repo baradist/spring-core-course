@@ -37,6 +37,9 @@ public class App {
         app.logEvent(EventType.ERROR, "Message 8");
         app.logEvent(null, "Message 9");
 
+        Client client = (Client) ctx.getBean("client");
+        System.out.println(client);
+
         ctx.close();
     }
 

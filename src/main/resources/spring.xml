@@ -7,8 +7,13 @@
        default-lazy-init="true">
 
     <import resource="loggers.xml"/>
+    <import resource="properties.xml"/>
 
-    <bean id="client" class="cf.baradist.spring.core.beans.Client"/>
+    <bean id="client" class="cf.baradist.spring.core.beans.Client">
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
+        <property name="greeting" value="${greeting}"/>
+    </bean>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateInstance"/>
 
