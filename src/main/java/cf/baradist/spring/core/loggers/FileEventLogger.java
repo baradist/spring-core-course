@@ -1,16 +1,23 @@
 package cf.baradist.spring.core.loggers;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+@Component("fileEventLogger")
 public class FileEventLogger implements EventLogger {
     private String fileName;
     private File file;
 
-    public FileEventLogger(String fileName) {
+    @Autowired
+    public FileEventLogger(@Value("logs/log.txt") String fileName) {
         this.fileName = fileName;
     }
 
@@ -27,6 +34,7 @@ public class FileEventLogger implements EventLogger {
         }
     }
 
+    @PostConstruct
     public void init() throws IOException {
         file = new File(fileName);
         if (!file.exists()) {
@@ -40,6 +48,7 @@ public class FileEventLogger implements EventLogger {
         }
     }
 
+    @PreDestroy
     protected void destroy() {
     }
 }

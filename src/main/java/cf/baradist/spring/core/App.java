@@ -5,19 +5,26 @@ import cf.baradist.spring.core.loggers.Event;
 import cf.baradist.spring.core.loggers.EventLogger;
 import cf.baradist.spring.core.loggers.EventType;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Data
+@Component("app")
 public class App {
     private static ConfigurableApplicationContext ctx;
     private Client client;
     private EventLogger eventLogger;
     private Map<EventType, EventLogger> loggers;
 
-    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
+    @Autowired
+    public App(Client client,
+               @Qualifier("cachedFileEventLogger") EventLogger eventLogger,
+               @Qualifier("eventTypeToLogger") Map<EventType, EventLogger> loggers) {
         this.client = client;
         this.eventLogger = eventLogger;
         this.loggers = loggers;
