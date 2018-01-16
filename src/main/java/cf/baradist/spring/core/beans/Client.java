@@ -15,12 +15,12 @@ public class Client {
     public Client() {
     }
 
-    public Client(@Value("${client.id}") long id, @Value("${client.name}") String fullName) {
+    public Client(@Value("${id}") long id, @Value("${name}") String fullName) {
         this.id = id;
         this.fullName = fullName;
     }
 
-    @Value("${client.greeting}")
+    @Value("${greeting}")
     public void setGreeting(String greeting) {
         this.greeting = greeting;
     }
