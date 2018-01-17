@@ -1,6 +1,7 @@
 package cf.baradist.spring.core;
 
 import cf.baradist.spring.core.beans.Client;
+import cf.baradist.spring.core.config.SpringConfig;
 import cf.baradist.spring.core.loggers.Event;
 import cf.baradist.spring.core.loggers.EventLogger;
 import cf.baradist.spring.core.loggers.EventType;
@@ -8,9 +9,11 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Data
@@ -23,15 +26,18 @@ public class App {
 
     @Autowired
     public App(Client client,
-               @Qualifier("cachedFileEventLogger") EventLogger eventLogger,
-               @Qualifier("eventTypeToLogger") Map<EventType, EventLogger> loggers) {
+               @Qualifier("cachedFileEventLogger") EventLogger eventLogger) {
         this.client = client;
         this.eventLogger = eventLogger;
+    }
+
+    @Resource(name = "eventTypeToLogger")
+    public void setLoggers(Map<EventType, EventLogger> loggers) {
         this.loggers = loggers;
     }
 
     public static void main(String[] args) {
-        ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         App app = (App) ctx.getBean("app");
 
         app.logEvent(EventType.INFO, "Message 1");
