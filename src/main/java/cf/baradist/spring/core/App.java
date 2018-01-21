@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -31,11 +30,6 @@ public class App {
         this.eventLogger = eventLogger;
     }
 
-    @Resource(name = "eventTypeToLogger")
-    public void setLoggers(Map<EventType, EventLogger> loggers) {
-        this.loggers = loggers;
-    }
-
     public static void main(String[] args) {
         ctx = new AnnotationConfigApplicationContext(SpringConfig.class);
         App app = (App) ctx.getBean("app");
@@ -54,6 +48,11 @@ public class App {
         System.out.println(client);
 
         ctx.close();
+    }
+
+    @Resource(name = "eventTypeToLogger")
+    public void setLoggers(Map<EventType, EventLogger> loggers) {
+        this.loggers = loggers;
     }
 
     public void logEvent(EventType type, String msg) {

@@ -4,8 +4,8 @@ import cf.baradist.spring.core.loggers.EventLogger;
 import cf.baradist.spring.core.loggers.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.text.DateFormat;
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@ComponentScan("cf.baradist.spring.core")
 public class SpringConfig {
 
     @Autowired
